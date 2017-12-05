@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONSerializer;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -51,51 +52,63 @@ import org.osgi.service.component.annotations.Reference;
 public class DDMFormBuilderSettingsRetrieverHelper {
 
 	public String getDDMDataProviderInstanceParameterSettingsURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(
 			_ddmDataProviderInstanceParameterSettingsServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-builder-provider-instance-parameter-" +
 				"settings/");
 	}
 
 	public String getDDMDataProviderInstancesURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(
 			_ddmDataProviderInstancesServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-builder-data-provider-instances/");
 	}
 
 	public String getDDMFieldSetDefinitionURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(
 			_ddmFieldSetDefinitionServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-builder-fieldset-definition/");
 	}
 
 	public String getDDMFieldSettingsDDMFormContextURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(
 			_ddmFieldSettingsDDMFormContextServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-builder-field-settings-form-context/");
 	}
 
 	public String getDDMFormContextProviderURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(
 			_ddmFormContextProviderServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-context-provider/");
 	}
 
 	public String getDDMFunctionsURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(
 			_ddmFormFunctionsServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-builder-functions/");
 	}
 
@@ -131,9 +144,11 @@ public class DDMFormBuilderSettingsRetrieverHelper {
 	}
 
 	public String getRolesURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath(_rolesServlet);
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-builder-roles/");
 	}
 
@@ -208,6 +223,9 @@ public class DDMFormBuilderSettingsRetrieverHelper {
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference(
 		target = "(osgi.http.whiteboard.servlet.name=com.liferay.dynamic.data.mapping.form.builder.internal.servlet.RolesServlet)"
