@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONSerializer;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -163,7 +164,9 @@ public class DDMFormBuilderSettingsRetrieverHelper {
 
 		ServletContext servletContext = servletConfig.getServletContext();
 
-		return servletContext.getContextPath();
+		String proxyPath = _portal.getPathProxy();
+
+		return proxyPath.concat(servletContext.getContextPath());
 	}
 
 	@Reference(
@@ -208,6 +211,9 @@ public class DDMFormBuilderSettingsRetrieverHelper {
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference(
 		target = "(osgi.http.whiteboard.servlet.name=com.liferay.dynamic.data.mapping.form.builder.internal.servlet.RolesServlet)"
