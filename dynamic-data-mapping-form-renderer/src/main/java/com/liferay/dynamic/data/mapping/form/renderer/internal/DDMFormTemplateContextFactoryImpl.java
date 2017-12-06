@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -192,9 +193,11 @@ public class DDMFormTemplateContextFactoryImpl
 	}
 
 	protected String getDDMFormContextProviderServletURL() {
+		String proxyPath = _portal.getPathProxy();
+
 		String servletContextPath = getServletContextPath();
 
-		return servletContextPath.concat(
+		return proxyPath.concat(servletContextPath).concat(
 			"/dynamic-data-mapping-form-context-provider/");
 	}
 
@@ -357,5 +360,8 @@ public class DDMFormTemplateContextFactoryImpl
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private Portal _portal;
 
 }
